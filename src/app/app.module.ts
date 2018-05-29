@@ -17,7 +17,8 @@ import { DogsComponent } from './dogs/dogs.component';
 import { DogsService } from './dogs.service';
 import { AppRoutingModule } from './/app-routing.module';
 import { EditDogComponent } from './edit-dog/edit-dog.component';
-import { FilterPipe } from './filter.pipe'
+import { FilterPipe } from './filter.pipe';
+import { AddWalkComponent } from './add-walk/add-walk.component'
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { FilterPipe } from './filter.pipe'
     AddOwnerComponent,
     DogsComponent,
     EditDogComponent,
-    FilterPipe
+    FilterPipe,
+    AddWalkComponent
   ],
   imports: [
     BrowserModule,

@@ -28,8 +28,13 @@ export class DogsService {
   }
 
   updateDog(id: number, dog: Dog) {
-    var existingDogIndex = this.getDogs().findIndex((dog) => dog.id == id);
+    const existingDogIndex = this.getDogs().findIndex((dog) => dog.id == id);
     DOGS[existingDogIndex] = dog;
+  }
+
+  addWalk(dog, walk) {
+    dog.walks.push(walk);
+    console.log(DOGS)
   }
 
 }
