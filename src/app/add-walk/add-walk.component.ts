@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnChanges } from '@angular/core';
 import { Dog } from '../dog';
 import Walk from '../walk';
 
@@ -7,13 +7,17 @@ import Walk from '../walk';
   templateUrl: './add-walk.component.html',
   styleUrls: ['./add-walk.component.scss']
 })
-export class AddWalkComponent implements OnInit {
+export class AddWalkComponent implements OnInit, OnChanges {
 
   @Input() dog : Dog = new Dog();
   @Output() walkAdded : EventEmitter<Walk> = new EventEmitter();
   description: string;
 
   constructor() { }
+
+  ngOnChanges(changes) {
+    console.log('changed! ' + JSON.stringify(changes));
+  }
 
   ngOnInit() {
   }

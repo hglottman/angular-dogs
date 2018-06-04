@@ -4,9 +4,13 @@
   <button mat-button routerLink="/add-dog">Add Dog</button>
   <span class="fill-remaining-space" color="accent"></span>
 </mat-toolbar>
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
+<h1>
+  Welcome to {{ title }}!
+</h1>
 
-  <router-outlet></router-outlet>
-  
+<div class='score-container'>
+  <app-score-component></app-score-component>
+</div>
+
+
+<router-outlet></router-outlet>
