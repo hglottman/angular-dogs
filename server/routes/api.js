@@ -14,11 +14,24 @@ router.get('/dogs', (req, res) => {
   res.send(JSON.stringify(DOGS));
 });
 
+router.get('/dogs/:id', (req, res) => {
+    var dogIndex = DOGS.findIndex((dog) => dog.id.toString() == req.params.id.toString());
+    dogId = DOGS[dogIndex].id;
+    res.send(JSON.stringify(DOGS[dogIndex]));
+  });
+
 router.post('/dogs', (req, res) => {
     var dog = req.body.dog;
     dog.id = generateId();
     DOGS.push(dog);
     res.send(JSON.stringify(dog)); 
+});
+
+router.put('/dogs/:id', (req, res) => {
+    var dogIndex = DOGS.findIndex((dog) => dog.id.toString() == req.params.id.toString());
+    dogId = DOGS[dogIndex].id;
+    DOGS[dogIndex].walks.push(req.body.walks);
+    res.send(JSON.stringify(DOGS[dogIndex]));
 });
 
 router.put('/dogs/:id', (req, res) => {

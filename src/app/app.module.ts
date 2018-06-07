@@ -9,6 +9,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AddDogComponent } from './add-dog/add-dog.component';
@@ -36,6 +37,7 @@ import { ScoreComponent } from './score/score.component';
     ScoreComponent
     ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     MatToolbarModule,
     MatInputModule,

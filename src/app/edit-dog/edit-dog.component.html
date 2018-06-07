@@ -1,5 +1,5 @@
 <h3>Edit Dog</h3>
-
+<div *ngIf="dog">
 <mat-form-field>
     <input matInput [(ngModel)]="dog.name" placeholder="Dog Name">
   </mat-form-field>
@@ -13,3 +13,4 @@
   <div *ngIf="dogWeight < 10" class="validation-error">{{dogName}} is underweight</div>  
   
   <button mat-button (click)="updateDog()" color="primary">Update</button>
+</div>

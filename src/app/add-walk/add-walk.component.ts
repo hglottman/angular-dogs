@@ -9,8 +9,8 @@ import Walk from '../walk';
 })
 export class AddWalkComponent implements OnInit {
 
-  @Input() dog : Dog = new Dog();
-  @Output() walkAdded : EventEmitter<Walk> = new EventEmitter();
+  @Input() dog: Dog = new Dog();
+  @Output() walkAdded: EventEmitter <Dog> = new EventEmitter();
   description: string;
 
   constructor() { }
@@ -19,8 +19,10 @@ export class AddWalkComponent implements OnInit {
   }
 
   submit() {
-    let newWalk = new Walk(new Date(), this.description);
-    this.walkAdded.emit(newWalk);
+    const newWalk = new Walk(new Date(), this.description);
+    this.dog.walks [0] = newWalk;
+    this.walkAdded.emit(this.dog);
+
   }
 
 }
