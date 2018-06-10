@@ -17,21 +17,18 @@ export class DogsComponent implements OnInit {
   dateFormat = 'fullDate';
 
   constructor(private dogsService: DogsService, private route: ActivatedRoute, private router: Router) {
-  }
-
-  setDogs() {
-    this.dogsService.getDogs().subscribe((dogs) => {
+    this.dogsService.dogsObservable.subscribe((dogs) => {
       this.dogs = dogs;
+      console.log(this.dogs);
     });
   }
+
   ngOnInit() {
-    this.dogsService.getDogs().subscribe((data) => {
-       this.dogs = data; });
-    // this.setDogs();
+    this.dogsService.getDogs();
     this.route.queryParams.subscribe(queryParams => {
       this.filterTerm = queryParams.name;
     });
-    }
+  }
 
 
   onFilterChanged(filterString) {
@@ -39,9 +36,7 @@ export class DogsComponent implements OnInit {
   }
 
   removeDog(id) {
-    this.dogsService.removeDog(id).subscribe(() => {
-    });
-    this.setDogs();
+    this.dogsService.removeDog(id);
   }
 
 
@@ -56,11 +51,8 @@ export class DogsComponent implements OnInit {
   handleAddWalk(dog) {
     const id = dog.id;
     const walks = dog.walks;
-    this.dogsService.addWalk(id, walks, dog).subscribe(data => {
-      console.log(data);
-    });
-    this.setDogs();
-    this.dogsService.addScore(10);
+    this.dogsService.addWalk(id, walks, dog);
+    // this.dogsService.addScore(10);
   }
 
 

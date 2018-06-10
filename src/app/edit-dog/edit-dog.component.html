@@ -9,7 +9,7 @@
   <mat-form-field>
     <input matInput [(ngModel)]="dog.owner" placeholder="Owner Name">
   </mat-form-field>
-  
+ 
   <div *ngIf="dogWeight < 10" class="validation-error">{{dogName}} is underweight</div>  
   
   <button mat-button (click)="updateDog()" color="primary">Update</button>

@@ -4,6 +4,7 @@ import Walk from './walk';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
+import { Subscriber } from 'rxjs/Subscriber';
 
 
 const DOGS = [
@@ -19,12 +20,14 @@ const DOGS = [
 export class DogsService {
 
   dogs: Array<Dog>;
+  dogsSubject: Subject<Dog[]> = new Subject<Dog[]>();
+  dogsObservable: Observable<Dog[]>;
 
-    score = 0;
+  score = 0;
   public scoreUpdated: Observable<number>;
+  private scoreSubject: Subject<number>;
   public dogCountUpdated: Observable<number>;
   public dogCountSubject: Subject<number>;
-  private scoreSubject: Subject<number>;
 
 
   constructor(private http: HttpClient) {
@@ -32,41 +35,53 @@ export class DogsService {
     this.dogCountSubject = new Subject<number>();
     this.scoreUpdated = this.scoreSubject.asObservable();
     this.dogCountUpdated = this.dogCountSubject.asObservable();
+    this.dogsObservable = this.dogsSubject.asObservable();
   }
 
-  getDogs(): Observable <Dog[]> {
+  getDogs(): void {
     const observable = this.http.get<Dog[]>('/api/dogs');
-    return observable ;
+    observable.subscribe((data) => {
+      this.dogs = data;
+      this.dogsSubject.next(data);
+    });
   }
 
   getDog(id: number) {
-        return this.http.get<any>(`/api/dogs/${id}`);
-      }
+    return this.http.get<any>(`/api/dogs/${id}`);
+  }
 
-  addDog(newDog: Dog): Observable < Dog > {
-        return this.http.post<Dog>('/api/dogs', { dog: newDog });
-      }
+  addDog(newDog: Dog): void {
+    this.http.post<Dog>('/api/dogs', { dog: newDog }).subscribe(() => {
+      this.getDogs();
+    });
+  }
 
-  updateDog(id: number, dog: Dog): Observable < Dog > {
-        return this.http.put<Dog>(`/api/dogs/${id}`, { dog: dog });
-      }
+  updateDog(id: number, dog: Dog): void {
+    this.http.put<Dog>(`/api/dogs/${id}`, { dog: dog }).subscribe(() => {
+    this.getDogs();
+  });
+  }
 
-  removeDog(id: number): Observable < Dog > {
-        return this.http.delete<Dog>(`/api/dogs/${id}`);
-      }
+  removeDog(id: number): void {
+     this.http.delete<Dog>(`/api/dogs/${id}`).subscribe(() => {
+      this.getDogs();
+    });
+  }
 
-  addWalk(id: number, walks: Walk[], dog: Dog): Observable < Dog > {
-    console.log('this is the ' + id);
-    return this.http.put<Dog>(`/api/dogs/${id}`, { walks: walks , dog: dog });
-      }
+  addWalk(id: number, walks: Walk[], dog: Dog): void {
+   this.http.put<Dog>(`/api/dogs/${id}/walks`, { walks: walks, dog: dog }).subscribe(() => {
+    this.getDogs();
+    this.addScore(1);
+  });
+  }
 
   addScore(increment) {
-        this.score += increment;
-        this.scoreSubject.next(this.score);
-      }
+    this.score += increment;
+    this.scoreSubject.next(this.score);
+  }
 
   getScore() {
-        return this.score;
-      }
+    return this.score;
+  }
 
 }

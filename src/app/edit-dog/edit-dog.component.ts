@@ -24,9 +24,8 @@ export class EditDogComponent implements OnInit {
   }
 
   updateDog() {
-    this.dogsService.updateDog(this.dog.id, this.dog).subscribe ((data) => {
-    this.router.navigate(['/']);
-  });
+    console.log(this.dog);
+    this.dogsService.updateDog(this.dog.id, this.dog);
   }
 
 }

@@ -9,9 +9,9 @@
                 </mat-card-header>
                 <mat-card-content>
                   <p><strong>Weight:</strong> {{ dog.weight }}</p>
-                  <p><strong>Birthdate:</strong> {{dog.birthDate | date: dateFormat}}</p>
+                  <!-- <p><strong>Birthdate:</strong> {{dog.birthDate | date: dateFormat}}</p> -->
                   <p><strong>Owner:</strong> {{ dog.owner }}</p>
-                  <p *ngIf="dog.walks.length > 0"><strong>Last Walk:</strong>  {{ dog.walks[dog.walks.length - 1].date | date: 'fullDate' }}</p>
+                  <!-- <p *ngIf="dog.walks.length > 0"><strong>Last Walk:</strong>  {{ dog.walks[dog.walks.length - 1].date | date: 'fullDate' }}</p> -->
                   <div class="button-row">
                       <button mat-button color="primary" [routerLink]="['edit-dog', dog.id]">Edit</button>
                       <button mat-button color="danger" (click)="removeDog(dog.id)">Remove</button>
