@@ -10,9 +10,20 @@ const DOGS = [
 ]
 
 /* GET api listing. */
+// router.get('/dogs', (req, res) => {
+//   res.send(JSON.stringify(DOGS));
+// });
+
 router.get('/dogs', (req, res) => {
-  res.send(JSON.stringify(DOGS));
-});
+    let filterString = req.query.name;
+    console.log(filterString);
+    if(filterString !== undefined){
+      res.send(JSON.stringify(
+          DOGS.filter((dog) => dog.name.toLowerCase().includes(filterString.toLowerCase()))));
+    } else {
+        res.send(JSON.stringify(DOGS));
+    }
+ });
 
 router.get('/dogs/:id', (req, res) => {
     var dogIndex = DOGS.findIndex((dog) => dog.id.toString() == req.params.id.toString());

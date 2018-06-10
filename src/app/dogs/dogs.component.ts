@@ -13,7 +13,7 @@ export class DogsComponent implements OnInit {
 
   selectedDog: Dog;
   dogs = new Array<Dog>();
-  filterTerm: string;
+  filterString: string;
   dateFormat = 'fullDate';
 
   constructor(private dogsService: DogsService, private route: ActivatedRoute, private router: Router) {
@@ -26,13 +26,22 @@ export class DogsComponent implements OnInit {
   ngOnInit() {
     this.dogsService.getDogs();
     this.route.queryParams.subscribe(queryParams => {
-      this.filterTerm = queryParams.name;
+      this.filterString = queryParams.name;
     });
   }
 
 
+  // onFilterChanged(filterString) {
+  //   this.router.navigate(['.'], { queryParams: { name: filterString } });
+  // }
+
   onFilterChanged(filterString) {
-    this.router.navigate(['.'], { queryParams: { name: filterString } });
+    console.log(filterString);
+    if (filterString !== undefined) {
+      this.dogsService.filterDogs(filterString);
+    // this.router.navigate(['.'], { queryParams: { name: filterString }}).then(() =>{
+    // }
+  }
   }
 
   removeDog(id) {

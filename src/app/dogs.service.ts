@@ -84,4 +84,11 @@ export class DogsService {
     return this.score;
   }
 
+  filterDogs(filterString) {
+    this.http.get<Dog[]>('/api/dogs?name=' + filterString).subscribe((data) => {
+      this.dogs = data;
+      this.dogsSubject.next(data);
+   });
+  }
+
 }
